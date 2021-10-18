@@ -89,7 +89,7 @@ $loaddc pele
 $gdxin '..\Data\output\pf_2020.gdx'
 $loaddc pf
 
-biosupply(r,biostep,t)  = biosupply(r,biostep,t) * 1e3;
+biosupply(r,biostep,t)  = biosupply(r,biostep,t) * 1e3; /* scaling constant */
 
 * adjust
 
@@ -189,8 +189,8 @@ peak(r,t)                       = peak(r,"2020") * dele(r,t) / dele(r,"2020");
 display peak;
 
 * misc *
-ypp(t)$(t.val lt 2050)          = 5;
-ypp(t)$(t.val ge 2050)          = 25;
+ypp(t)$(t.val lt 2050)          = 5; /* years per period: 2020-2050 */
+ypp(t)$(t.val ge 2050)          = 25; /* years per period: 2050-2075 */
 
 emis_cap(p,t)                   = +inf;
 cap_limit("nuc_N",t)            = +inf;
