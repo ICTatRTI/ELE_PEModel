@@ -1,6 +1,12 @@
 ./model/list/*
 ./model/output/*
 ./model/restart/*
-
+*_101221.gms
+*_101821.gms
+*_backup.gms
+*_OG.gms
+*.lst
+*_OG.csv
+*_output_*
 
 
