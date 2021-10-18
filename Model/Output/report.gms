@@ -72,9 +72,9 @@ physical("USA","%1","57",t)     = eps;
 physical("USA","%1","58",t)     = eps;
 
 * retirements
-physical("USA","%1","59",t)     = sum((r,u,v)$(colx(u)), retire.l(r,u,v,t))     + eps;
-physical("USA","%1","60",t)     = sum((r,u,v)$(stog(u)), retire.l(r,u,v,t))     + eps;
-physical("USA","%1","61",t)     = sum((r,u,v)$(ngtbX(u)), retire.l(r,u,v,t))    + eps;
+*physical("USA","%1","59",t)     = sum((r,u,v)$(colx(u)), retire.l(r,u,v,t))     + eps;
+*physical("USA","%1","60",t)     = sum((r,u,v)$(stog(u)), retire.l(r,u,v,t))     + eps;
+*physical("USA","%1","61",t)     = sum((r,u,v)$(ngtbX(u)), retire.l(r,u,v,t))    + eps;
 
 
 * Fuel prices
@@ -370,40 +370,40 @@ EMF_elec("%1","USA","106",t)    = EMF_elec("%1","USA","105",t) / 1.3;
 **--- LCOE ---**
 
 * average levelized cost of electricity of coal-fired power with CCS  (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate. LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","109",t)    = ( sum(r, lvlcost_new(r,"col_Nccs","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
+*EMF_elec("%1","USA","109",t)    = ( sum(r, lvlcost_new(r,"col_Nccs","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
 
 * average levelized cost of electricity of coal-fired power without CCS  (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate. LCOE should NOT include effect of carbon price + eps.
-EMF_elec("%1","USA","110",t)    = ( sum(r, lvlcost_new(r,"col_N","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
+*EMF_elec("%1","USA","110",t)    = ( sum(r, lvlcost_new(r,"col_N","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
 
 * average levelized cost of electricity of gas-fired power with CCS  (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate. LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","111",t)    = ( sum(r, lvlcost_new(r,"ngcc_Nccs","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
+*EMF_elec("%1","USA","111",t)    = ( sum(r, lvlcost_new(r,"ngcc_Nccs","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
 
 * average levelized cost of electricity of gas-fired power without CCS  (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate. LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","112",t)    = ( sum(r, lvlcost_new(r,"ngcc_N","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
+*EMF_elec("%1","USA","112",t)    = ( sum(r, lvlcost_new(r,"ngcc_N","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
 
 * average levelized cost of electricity of nuclear generated power (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate.  LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","113",t)    = ( sum(r, lvlcost_new(r,"nuc_N","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
+*EMF_elec("%1","USA","113",t)    = ( sum(r, lvlcost_new(r,"nuc_N","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
 
 * average levelized cost of electricity of non-biomass renewable generated power (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate.  LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","114",t)    = ( sum((r,resu), lvlcost_new(r,resu,"total",t) * sum((v,l), gen.l(r,resu,v,l,t))) / sum((r,resu), sum((v,l), gen.l(r,resu,v,l,t))) ) * deflator + eps;
+*EMF_elec("%1","USA","114",t)    = ( sum((r,resu), lvlcost_new(r,resu,"total",t) * sum((v,l), gen.l(r,resu,v,l,t))) / sum((r,resu), sum((v,l), gen.l(r,resu,v,l,t))) ) * deflator + eps;
 
 * average levelized cost of electricity of solar power (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate.  LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","115",t)    = ( sum(r, lvlcost_new(r,"slrCSP_N","total",t) * capacity(r,"slr_x","2010")) / sum(r, capacity(r,"slr_x","2010")) ) * deflator + eps;
+*EMF_elec("%1","USA","115",t)    = ( sum(r, lvlcost_new(r,"slrCSP_N","total",t) * capacity(r,"slr_x","2020")) / sum(r, capacity(r,"slr_x","2020")) ) * deflator + eps;
 
 * marginal levelized cost of electricity of solar power (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate.  LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","116",t)    = lvlcost_new("wnc","slrCSP_N","total",t) * deflator + eps;
+*EMF_elec("%1","USA","116",t)    = lvlcost_new("wnc","slrCSP_N","total",t) * deflator + eps;
 
 * average levelized cost of electricity of wind power (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate.  LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","117",t)    = ( sum((r,wndon,cc), wind_cost_nrel(r,wndon,cc) * wind_limit(r,wndon,cc) ) / sum((r,wndon,cc), wind_limit(r,wndon,cc)) ) * deflator + eps;
+*EMF_elec("%1","USA","117",t)    = ( sum((r,wndon,cc), wind_cost_nrel(r,wndon,cc) * wind_limit(r,wndon,cc) ) / sum((r,wndon,cc), wind_limit(r,wndon,cc)) ) * deflator + eps;
 
 * marginal levelized cost of electricity of wind power (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate.  LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","118",t)    = ( sum((r,wndon), wind_cost_nrel(r,wndon,"10") * wind_limit(r,wndon,"10") ) / sum((r,wndon), wind_limit(r,wndon,"10")) ) * deflator + eps;
+*EMF_elec("%1","USA","118",t)    = ( sum((r,wndon), wind_cost_nrel(r,wndon,"10") * wind_limit(r,wndon,"10") ) / sum((r,wndon), wind_limit(r,wndon,"10")) ) * deflator + eps;
 
 * average levelized cost of electricity of biomass generated power with CCS (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate.  LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","119",t)    = eps;
+*EMF_elec("%1","USA","119",t)    = eps;
 
 * average levelized cost of electricity of biomass generated power without CCS (weighted by the share of electricity of the various power plant types). LCOE should include the investment, O&M, fuel and decomissioning costs. Each model is free to chose its own discount rate.  LCOE should NOT include effect of carbon price.
-EMF_elec("%1","USA","120",t)    = ( sum(r, lvlcost_new(r,"bio_N","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
+*EMF_elec("%1","USA","120",t)    = ( sum(r, lvlcost_new(r,"bio_N","total",t) * dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;
 
 
 
@@ -423,10 +423,10 @@ EMF_elec("%1","USA","135",t)    = (sum(r, capcost(r,"col_N",t)*dele(r,t)) / sum(
 EMF_elec("%1","USA","136",t)    = sum(num, heatrate(num,"ngcc_N",t)) + eps;
 
 * capital cost of new solar PV cells
-EMF_elec("%1","USA","137",t)    = (sum(r, capcost(r,"slrPV_N",t)*capacity(r,"slr_x","2010")) / sum(r, capacity(r,"slr_x","2010")) ) * deflator + eps;
+EMF_elec("%1","USA","137",t)    = (sum(r, capcost(r,"slrPV_N",t)*capacity(r,"slr_x","2020")) / sum(r, capacity(r,"slr_x","2020")) ) * deflator + eps;
 
 * capital cost of a new solar CSP facility
-EMF_elec("%1","USA","138",t)    = (sum(r, capcost(r,"slrCSP_N",t)*capacity(r,"slr_x","2010")) / sum(r, capacity(r,"slr_x","2010")) ) * deflator + eps;
+EMF_elec("%1","USA","138",t)    = (sum(r, capcost(r,"slrCSP_N",t)*capacity(r,"slr_x","2020")) / sum(r, capacity(r,"slr_x","2020")) ) * deflator + eps;
 
 * capital cost of a new nuclear power plant
 EMF_elec("%1","USA","139",t)    = (sum(r, capcost(r,"nuc_N",t)*dele(r,t)) / sum(r, dele(r,t)) ) * deflator + eps;

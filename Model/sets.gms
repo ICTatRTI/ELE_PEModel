@@ -9,8 +9,10 @@ set     var /1*1000/;
 
 
 **--    Time periods and Vintages       --**
-set     yr              years           / 2010 * 2100 /
-        t(yr)           time periods    / 2010,2015,2020,2025,2030,2035,2040,2045,2050,2075 /;          alias(t,v);
+set     yr              years           / 2020 * 2100 /
+*        t(yr)           time periods    / 2020,2025,2030,2035,2040,2045,2050,2075 /;          alias(t,v);
+        t(yr)           time periods    / 2020 /;          alias(t,v);
+
 
 **--    Regions         --**
 set     r               regions /
