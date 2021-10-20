@@ -1,12 +1,10 @@
-$title Electricity Dispatch Partial Equilibrium  Model
+$title Electricity Dispatch Partial Equilibrium Model
 * Copyright RTI International 1/1/2011
 
 * printing options
 $onSymList
 $offinclude
-
-$if not set scn $set scn ces
-$if not set carbtax $set carbtax 0
+$onInLine
 
 
 **--- Include sets ---**
@@ -21,41 +19,15 @@ parameter
 
 deflator        = 1 / 1.105783;
 
-
-parameter
-        RESlvl          level of RES
-        RESswtch        switch on RES policy
-        CESlvl          level of CES
-        CESswtch        switch on CES policy
-        minGENlvl       minimum generation levels;
-
-
-RESswtch(t)             = no;
-CESswtch(t)             = no;
-
-RESlvl("2020")          = 0.0;
-
-CESlvl("2020")          = 0.0;
-
-parameter chk_carb_prc;
-
 **--- Variables for Model ---**
 positive variables
         DemandSeg(r,t)          Electricity demand by load segment
         GEN(r,u,v,l,t)          Generation by units
         CAP(r,u,v,t)            Capacity of units
-        INV(r,u,v,t)            Investment in new capacity
-        Retire(r,u,v,t)         Retirement of capacity
         Fuel(r,f,t)             Fuel use
         Biomass(r,biostep,t)    Biomass fuel use
         Transmit(r,rr,l,t)      Transmission
         Emis(r,p,t)             Emissions
-        Emis_Saved(p,t)         Emission allowances saved
-        Emis_Withdrawn(p,t)     Emission allowances withdrawn
-        Emis_Bank(p,t)          Emissions bank
-        rm_wind(r,rm_step,u,t)
-        rm_slr(r,rm_step,u,t)
-        wind_cap(r,u,cc)        New wind capacity (GW)
 ;
 
 variables
@@ -78,10 +50,10 @@ objdef..
         obj =e= sum(t, pv(t) * sum(r,
 
 * variable O&M costs (TWh times $/MWh equals $ million)
-        + sum((feasible(r,u,v,t),l), GEN(r,u,v,l,t) * pvom(r,t) * vomcost(r,u) )
+        + sum((feasible(r,u,v,t),l), GEN(r,u,v,l,t) * vomcost(r,u) )
 
 * fixed O&M costs (GW times $/kW-yr equals $ million)
-        + sum(feasible(r,u,v,t), CAP(r,u,v,t) * pfom(r,t) * fomcost(r,u))
+        + sum(feasible(r,u,v,t), CAP(r,u,v,t) * fomcost(r,u))
 
 * fuel costs - without biomass (TWh times MMBtu/GWh times $/MMBtu divided by 1e+3 equals $ million)
         + sum((feasible(r,u,v,t),l), GEN(r,u,v,l,t) * sum(f$(not bio(f)), pf(r,f,t) * fueltype(u,f) * heatrate(r,u,v)) * 1e-3 )  /* scaling prices to put everything in $ million */
@@ -111,7 +83,7 @@ c_DemandSeg(r,l,t)..
 
 * Generation (GW times hours per load segment)
 c_GEN(r,u,v,l,t)$(feasible(r,u,v,t) and hours(r,l) and not ps(u))..
-        GEN(r,u,v,l,t) =l= CAP(r,u,v,t) * hours(r,l) * maxCF(r,u,l) * 1e-3 /* scaling constant */
+        GEN(r,u,v,l,t) =l= CAP(r,u,v,t) * hours(r,l) * maxCF(r,u,l) * 1e-3 /* scaling constant: GEN in TWh*/
 ;
 
 ** Constraints for calculating output variables
@@ -123,7 +95,7 @@ c_Fuel(r,f,t)..
 c_Biomass(r,t)..
         sum(biostep, biomass(r,biostep,t)) =g= fuel(r,"bio",t);
 
-* CO2 Emissions in MMTC (GWh times MMBtu/GWh times kg/MMBtu divided by 1000 divided by 1 million = million metric tons)
+* CO2 Emissions in MMTC (GWh times MMBtu/GWh times kg/MMBtu divided by 1 million = million metric tons)
 c_Emis(r,p,t)$CO2(p)..
         Emis(r,p,t)
           =e=
@@ -163,82 +135,3 @@ solve elec using qcp minimizing obj;
 
 * save results
 $include '..\Model\findings.gms'
-
-* save results
-$batinclude '..\Model\Output\report.gms' %scn%
-
-
-execute_unload '..\Model\Output\EMF_ELEC_results_%scn%.gdx',EMF_elec;
-
-execute_unload '..\Model\Output\results_%scn%.gdx', USAphy%scn%,USAdlr%scn%;
-
-parameter
-        carb_results;
-
-carb_results(t,"emis")          = sum(r, emis.l(r,"co2",t));
-carb_results(t,"carbtax")       = carbtax(t);
-carb_results(t,"price")         = ( sum((r,l),(c_demandseg.m(r,l,t) * DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) / sum((r,l),(DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) ) / pv(t);
-carb_results(t,"nuc")           = sum((r,nucu,v,l), gen.l(r,nucu,v,l,t));
-carb_results(t,"CCS")           = sum((r,u,v,l)$ccsu(u), GEN.l(r,u,v,l,t));
-
-option carb_results:1;
-display carb_results;
-
-* OUTPUTS: TRICK GAMS into outputting data in csv format
-File generation_dat /..\Model\Results\EMA_output_generation.csv/,
-*        wholesale_dat /.\EMA\Model\Results\EMA_output_wholesale.csv/,
-*        wholesale_seg_dat /.\EMA\Model\Results\EMA_output_wholesale_seg.csv/,
-*        demand_seg_dat /.\EMA\Model\Results\EMA_output_demandseg.csv/,
-*        demand_reg_dat /.\EMA\Model\Results\EMA_output_demandreg.csv/,
-        capacity_dat /..\Model\Results\EMA_output_capacity.csv/,
-*        transmission_dat /.\EMA\Model\Results\EMA_output_transmission.csv/,
-*        emissions_dat /.\EMA\Model\Results\EMA_output_emissions.csv/,
-*        retirement_dat /.\EMA\Model\Results\EMA_output_retirement.csv/;
-        fomcost_dat /..\Model\Results\EMA_output_fomcost.csv/,
-        vomcost_dat /..\Model\Results\EMA_output_vomcost.csv/;
-
-
-put generation_dat;
-put 'region,unit,load_segment,vintage,time,value'/ ;
-* loop through region, unit, "vintage", load_segment, year
-loop((r,u,v,l,t), put r.tl:0,',':0,u.tl:0,',':0,l.tl:0,',':0,v.tl:0,',':0,t.tl:0,',':0,GEN.l(r,u,v,l,t):0:2 /);
-
-*put wholesale_dat;
-*put 'region,time,value'/;
-*loop((r,t), put r.tl:0,',':0,t.tl:0,',':0,(c_demand.m(r,t)/pv(t)):0:2 /);
-
-*put wholesale_seg_dat;
-*put 'region,load_segment,time,value'/;
-*loop((r,l,t), put r.tl:0,',':0,l.tl:0,',':0,t.tl:0,',':0,(c_demandseg.m(r,l,t)/pv(t)):0:2 /);
-
-* put demand_seg_dat;
-* put 'region,time,value'/;
-* loop((r,t), put r.tl:0,',':0,t.tl:0,',':0,DemandSeg.l(r,t):0:2 /);
-
-put capacity_dat;
-put 'region,unit,vintage,time,value'/;
-loop((r,u,v,t), put r.tl:0,',':0,u.tl:0,',':0,v.tl:0,',':0,t.tl:0,',',CAP.l(r,u,v,t):0:2 /);
-
-*put transmission_dat;
-*put 'region,destination,load_segment,time'/;
-*loop((r,rr,l,t), put r.tl:0,',':0,rr.tl:0,',':0,l.tl:0,',':0,t.tl:0,',':0,Transmit.l(r,rr,l,t):0:2 /);
-
-*put emissions_dat;
-*put 'region,pollutant,time,value'/;
-*loop((r,p,t), put r.tl:0,',':0,p.tl:0,',':0,t.tl:0,',':0,Emis.l(r,p,t):0:2 /);
-
-*put demand_reg_dat;
-*put 'region,time,value'/;
-*loop((r,t), put r.tl:0,',':0,t.tl:0,',':0,Demand.l(r,t):0:2 /);
-
-put fomcost_dat;
-put 'region,unit,value'/;
-loop((r,u), put r.tl:0,',':0,u.tl:0,',':0,fomcost(r,u):0:2 /);
-
-put vomcost_dat;
-put 'region,unit,value'/;
-loop((r,u), put r.tl:0,',':0,u.tl:0,',':0,vomcost(r,u):0:2 /);
-
-*put retirement_dat;
-*put 'region,unit,vintage,time,value'/;
-*loop((r,u,v,t), put r.tl:0,',':0,u.tl:0,',':0,v.tl:0,',':0,t.tl:0,',',Retire.l(r,u,v,t):0:2 /);

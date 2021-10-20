@@ -3,10 +3,11 @@
 ./model/restart/*
 *_101221.gms
 *_101821.gms
+*_101221_commented.gms
+*_101821_commented.gms
 *_backup.gms
 *_OG.gms
 *.lst
 *_OG.csv
 *_output_*
 *.bat
-
