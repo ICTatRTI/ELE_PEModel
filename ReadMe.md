@@ -27,8 +27,8 @@ The directory "Shell" contains the following two bash scripts:
 #### Data Files
 The directory "Data" contains the following:
 * In the "updated_data" directory there are csv files containing supporting data for the model. 
-    * `EMA_capacity.csv`, `EMA_pf.csv`, `EMA_dele.csv`, `EMA_fomcost.csv`, `EMA_vomcost.csv`, `EMA_heatrate.csv`, `EMA_count.csv` contain data that has been updated using the MEEDE dataset
-    * `EMA_capcost_2020.csv`, `EMA_dadj_2020.csv`, `EMA_pbio_2020.csv`, `EMA_biosupply_2020.csv`, `EMA_peak_2020.csv`, `EMA_pele_2020.csv` contain original unedited data truncated to only contain data pertaining to the year 2020.
+    * `PE_capacity.csv`, `PE_pf.csv`, `PE_dele.csv`, `PE_fomcost.csv`, `PE_vomcost.csv`, `PE_heatrate.csv`, `PE_count.csv` contain data that has been updated using the MEEDE dataset
+    * `PE_capcost_2020.csv`, `PE_dadj_2020.csv`, `PE_pbio_2020.csv`, `PE_biosupply_2020.csv`, `PE_peak_2020.csv`, `PE_pele_2020.csv` contain original unedited data truncated to only contain data pertaining to the year 2020.
 
 #### Output Files
 The directories "Model/Output" and Model/Results" are set up to receive outputs from the model. "Model/Results" contains results in csv format on generation, capacity, and costs. These files can be read and processed by the included R scripts to allow for easy comparisons of model runs.
