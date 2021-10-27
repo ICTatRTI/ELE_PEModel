@@ -6,19 +6,15 @@ parameter
 
 * Wholesale price from the marginal on demand
 chk_price(l,r,t)                = c_demandseg.m(r,l,t) / 1;
-chk_price("avg",r,t)            = ( sum(l,(c_demandseg.m(r,l,t) * DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) / sum(l,(DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) ) / pv(t);
-chk_price("avg","USA",t)        = ( sum((r,l),(c_demandseg.m(r,l,t) * DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) / sum((r,l),(DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) ) / pv(t);
+chk_price("avg",r,t)            = ( sum(l,(c_demandseg.m(r,l,t) * DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) / sum(l,(DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) );
+chk_price("avg","USA",t)        = ( sum((r,l),(c_demandseg.m(r,l,t) * DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) / sum((r,l),(DemandSeg.l(r,t) * dele(r,t) * loadpct(r,l) * dadj(r,t))) );
 
 execute_unload '..\Model\Output\pivot.gdx', chk_price;
 
 option chk_price:2;
 
-$onechov >..\Model\Output\report.gms
-
 * OUTPUTS: TRICK GAMS into outputting data in csv format
 File generation_dat /..\Model\Results\PE_output_generation.csv/,
-*        wholesale_dat /..\Model\Results\PE_output_wholesale.csv/,
-*        wholesale_seg_dat /..\Model\Results\PE_output_wholesale_seg.csv/,
 *        demand_seg_dat /..\Model\Results\PE_output_demandseg.csv/,
 *        demand_reg_dat /..\Model\Results\PE_output_demandreg.csv/,
         capacity_dat /..\Model\Results\PE_output_capacity.csv/,
@@ -32,14 +28,6 @@ put generation_dat;
 put 'region,unit,load_segment,vintage,time,value'/ ;
 * loop through region, unit, "vintage", load_segment, year
 loop((r,u,v,l,t), put r.tl:0,',':0,u.tl:0,',':0,l.tl:0,',':0,v.tl:0,',':0,t.tl:0,',':0,GEN.l(r,u,v,l,t):0:2 /);
-
-*put wholesale_dat;
-*put 'region,time,value'/;
-*loop((r,t), put r.tl:0,',':0,t.tl:0,',':0,(c_demand.m(r,t)/pv(t)):0:2 /);
-
-*put wholesale_seg_dat;
-*put 'region,load_segment,time,value'/;
-*loop((r,l,t), put r.tl:0,',':0,l.tl:0,',':0,t.tl:0,',':0,(c_demandseg.m(r,l,t)/pv(t)):0:2 /);
 
 * put demand_seg_dat;
 * put 'region,time,value'/;
@@ -72,6 +60,8 @@ loop((r,u), put r.tl:0,',':0,u.tl:0,',':0,vomcost(r,u):0:2 /);
 *put retirement_dat;
 *put 'region,unit,vintage,time,value'/;
 *loop((r,u,v,t), put r.tl:0,',':0,u.tl:0,',':0,v.tl:0,',':0,t.tl:0,',',Retire.l(r,u,v,t):0:2 /);
+
+$onechov >..\Model\Output\report.gms
 
 $offecho
 

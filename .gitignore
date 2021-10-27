@@ -9,5 +9,6 @@
 *_OG.gms
 *.lst
 *_OG.csv
+*_OG.gdx
 *_output_*
 *.bat

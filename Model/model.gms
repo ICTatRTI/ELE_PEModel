@@ -14,11 +14,6 @@ $include '..\Model\sets.gms'
 **--- Include data ---**
 $include '..\Model\data.gms'
 
-parameter
-        deflator;
-
-deflator        = 1 / 1.105783;
-
 **--- Variables for Model ---**
 positive variables
         DemandSeg(r,t)          Electricity demand by load segment
@@ -47,7 +42,7 @@ equations
 
 **--- Objective Function ---**
 objdef..
-        obj =e= sum(t, pv(t) * sum(r,
+        obj =e= sum(t, sum(r,
 
 * variable O&M costs (TWh times $/MWh equals $ million)
         + sum((feasible(r,u,v,t),l), GEN(r,u,v,l,t) * vomcost(r,u) )
@@ -66,7 +61,6 @@ objdef..
         + sum((rr,l), Transmit(r,rr,l,t) * 0.029 * 1e-3)
 ))
 ;
-
 
 **--- Constraints ---**
 * Total annual demand
