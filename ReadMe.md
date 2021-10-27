@@ -1,1 +1,0 @@
-﻿# Toy ELE model

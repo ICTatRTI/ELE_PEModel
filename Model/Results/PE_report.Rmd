@@ -1,0 +1,79 @@
+---
+title: "EMA Report SOLAR CAP TEST"
+author: "Shane Weisberg"
+date: "10/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+wd = getwd()
+setwd('C:/GAMS/win64/26.1/EMA/Model/Results')
+
+source("process_EMA_results.R")
+
+REGIONS = unique(generation$region)
+
+# options
+ALL_IN_ONE = FALSE
+```
+
+## Overall generation
+
+```{r overall, echo=FALSE, warning = FALSE, message = FALSE}
+generation_linegraph(generation, y_var = "total", color_by = "None")
+```
+
+```{r overall2, echo=FALSE, warning = FALSE, message = FALSE}
+generation_linegraph(generation, y_var = "percent renewable", color_by = "None")
+```
+
+## Total Regional generation
+```{r regional, echo=FALSE, warning = FALSE, message = FALSE}
+#ALL_IN_ONE = FALSE
+if (ALL_IN_ONE) {
+  total = generation_linegraph(generation, y_var = "total", color_by = "region", wrap_width = 30)
+  pct = generation_linegraph(generation, y_var = "percent renewable", color_by = "region", wrap_width = 30)
+  
+  myplot = total + pct +
+  plot_layout(guides = "collect") +
+  plot_annotation()
+
+  print(myplot)
+} else {
+  for (r in REGIONS) {
+    total = generation_linegraph(generation, y_var = "total", 
+                                 color_by = "None", region_filter = r, ylim = 1000, wrap_width = 30)
+    pct = generation_linegraph(generation, y_var = "percent renewable", 
+                                 color_by = "None", region_filter = r, ylim = 100, wrap_width = 30)
+    
+    myplot = total + pct +
+      plot_layout(guides = "collect") +
+      plot_annotation()
+    
+    print(myplot)
+  }
+}
+
+```
+
+## Regional Generation by Plant Type
+
+```{r regional_plant, echo=FALSE, warning = FALSE, message = FALSE}
+#ALL_IN_ONE = FALSE
+YEAR = 2050
+if (ALL_IN_ONE) {
+  myplot = generation_barplot(generation, x_var = "plant_type", year_filter = YEAR, region_filter = "All")
+  
+  print(myplot)
+} else {
+  for (r in REGIONS) {
+    myplot = generation_barplot(generation, x_var = "plant_type", 
+                                year_filter = YEAR, region_filter = r, ylim = 400)
+    
+    print(myplot)
+  }
+}
+
+```
