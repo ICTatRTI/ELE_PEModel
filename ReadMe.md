@@ -5,7 +5,7 @@
 ### Updated by Shane Weisberg, October 2021
 
 ### Run Instructions:
-Using the terminal, navigate to the "Shell" directory and run the shell script `run_ema.sh`
+Using the terminal, navigate to the "Shell" directory and run the shell script `run_pe.sh`
 Add the flag `-o` to this command to run the original, unmodified optimization model
 If bash is not installed on your system (windows users), you can download gitbash from https://git-scm.com/downloads and configure VS Code to run bash in its terminal
 
