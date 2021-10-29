@@ -14,11 +14,11 @@ done
 if [ $ORIGINAL = "TRUE" ]
 then
     echo "Running Original PE model..."
-    ../../gams.exe ../Model/model_OG.gms
+    ../../26.1/gams.exe ../Model/model_OG.gms
 else
     echo "Running Updated PE model..."
-    ../../gams.exe ../Model/model.gms
+    ../../26.1/gams.exe ../Model/model.gms
 fi
 
 # dump marginal prices to csv
-../../gdxdump.exe ../Model/Output/pivot.gdx output=../Model/Results/PE_output_wholesaleprice.csv format=csv symb=chk_price header="load_segment,region,year,value"
+../../26.1/gdxdump.exe ../Model/Output/pivot.gdx output=../Model/Results/PE_output_wholesaleprice.csv format=csv symb=chk_price header="load_segment,region,year,value"
