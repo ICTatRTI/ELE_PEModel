@@ -20,65 +20,65 @@ then
     echo "Gathering Data for 1-period PE run..."
     ## ---Updated Data to remove all years but 2020-----------------------------
     # biosupply
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_biosupply_2020.csv output=../Data/output/biosupply_2020.gdx index=1..3 values=lastCol useHeader=Y id=biosupply
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_biosupply_2020.csv output=../Data/output/biosupply_2020.gdx index=1..3 values=lastCol useHeader=Y id=biosupply
 
     # capcost
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_capcost_2020.csv output=../Data/output/capcost_2020.gdx index=1..3 values=lastCol useHeader=Y id=capcost
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_capcost_2020.csv output=../Data/output/capcost_2020.gdx index=1..3 values=lastCol useHeader=Y id=capcost
 
     # dadj
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_dadj_2020.csv output=../Data/output/dadj_2020.gdx index=1..2 values=lastCol useHeader=Y id=dadj
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_dadj_2020.csv output=../Data/output/dadj_2020.gdx index=1..2 values=lastCol useHeader=Y id=dadj
 
     # pbio
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_pbio_2020.csv output=../Data/output/pbio_2020.gdx index=1..3 values=lastCol useHeader=Y id=pbio
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_pbio_2020.csv output=../Data/output/pbio_2020.gdx index=1..3 values=lastCol useHeader=Y id=pbio
 
     # peak
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_peak_2020.csv output=../Data/output/peak_2020.gdx index=1..2 values=lastCol useHeader=Y id=peak
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_peak_2020.csv output=../Data/output/peak_2020.gdx index=1..2 values=lastCol useHeader=Y id=peak
 
     # peak
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_pele_2020.csv output=../Data/output/pele_2020.gdx index=1..2 values=lastCol useHeader=Y id=pele
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_pele_2020.csv output=../Data/output/pele_2020.gdx index=1..2 values=lastCol useHeader=Y id=pele
 else
     echo "Gathering Data for multi-period PE run..."
     ## ---Updated Data to remove 2010,2015 years-----------------------------
     # biosupply
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_biosupply.csv output=../Data/output/biosupply_2020.gdx index=1..3 values=lastCol useHeader=Y id=biosupply
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_biosupply.csv output=../Data/output/biosupply_2020.gdx index=1..3 values=lastCol useHeader=Y id=biosupply
 
     # capcost
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_capcost.csv output=../Data/output/capcost_2020.gdx index=1..3 values=lastCol useHeader=Y id=capcost
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_capcost.csv output=../Data/output/capcost_2020.gdx index=1..3 values=lastCol useHeader=Y id=capcost
 
     # dadj
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_dadj.csv output=../Data/output/dadj_2020.gdx index=1..2 values=lastCol useHeader=Y id=dadj
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_dadj.csv output=../Data/output/dadj_2020.gdx index=1..2 values=lastCol useHeader=Y id=dadj
 
     # pbio
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_pbio.csv output=../Data/output/pbio_2020.gdx index=1..3 values=lastCol useHeader=Y id=pbio
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_pbio.csv output=../Data/output/pbio_2020.gdx index=1..3 values=lastCol useHeader=Y id=pbio
 
     # peak
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_peak.csv output=../Data/output/peak_2020.gdx index=1..2 values=lastCol useHeader=Y id=peak
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_peak.csv output=../Data/output/peak_2020.gdx index=1..2 values=lastCol useHeader=Y id=peak
 
     # peak
-    ../../26.1/csv2gdx.exe ../Data/updated_data/PE_pele.csv output=../Data/output/pele_2020.gdx index=1..2 values=lastCol useHeader=Y id=pele
+    ../26.1/csv2gdx.exe ../Data/updated_data/PE_pele.csv output=../Data/output/pele_2020.gdx index=1..2 values=lastCol useHeader=Y id=pele
 fi
 
 ## These files have the same names regardless of the model run
 # capacity
-../../26.1/csv2gdx.exe ../Data/updated_data/PE_capacity.csv output=../Data/output/MEEDE_capacity.gdx index=1..3 values=lastCol useHeader=Y id=capacity  
+../26.1/csv2gdx.exe ../Data/updated_data/PE_capacity.csv output=../Data/output/MEEDE_capacity.gdx index=1..3 values=lastCol useHeader=Y id=capacity  
 
 # count
-../../26.1/csv2gdx.exe ../Data/updated_data/PE_count.csv output=../Data/output/MEEDE_count.gdx index=1..2 values=lastCol useHeader=Y id=count
+../26.1/csv2gdx.exe ../Data/updated_data/PE_count.csv output=../Data/output/MEEDE_count.gdx index=1..2 values=lastCol useHeader=Y id=count
 
 # heatrate
-../../26.1/csv2gdx.exe ../Data/updated_data/PE_heatrate.csv output=../Data/output/MEEDE_heatrate.gdx index=1..3 values=lastCol useHeader=Y id=heatrate
+../26.1/csv2gdx.exe ../Data/updated_data/PE_heatrate.csv output=../Data/output/MEEDE_heatrate.gdx index=1..3 values=lastCol useHeader=Y id=heatrate
 
 # vomcost
-../../26.1/csv2gdx.exe ../Data/updated_data/PE_vomcost.csv output=../Data/output/MEEDE_vomcost.gdx index=1..2 values=lastCol useHeader=Y id=vomcost
+../26.1/csv2gdx.exe ../Data/updated_data/PE_vomcost.csv output=../Data/output/MEEDE_vomcost.gdx index=1..2 values=lastCol useHeader=Y id=vomcost
 
 # fomcost
-../../26.1/csv2gdx.exe ../Data/updated_data/PE_fomcost.csv output=../Data/output/MEEDE_fomcost.gdx index=1..2 values=lastCol useHeader=Y id=fomcost
+../26.1/csv2gdx.exe ../Data/updated_data/PE_fomcost.csv output=../Data/output/MEEDE_fomcost.gdx index=1..2 values=lastCol useHeader=Y id=fomcost
 
 # size
-../../26.1/csv2gdx.exe ../Data/updated_data/PE_size.csv output=../Data/output/MEEDE_size.gdx index=1..3 values=lastCol useHeader=Y id=size
+../26.1/csv2gdx.exe ../Data/updated_data/PE_size.csv output=../Data/output/MEEDE_size.gdx index=1..3 values=lastCol useHeader=Y id=size
 
 # dele
-../../26.1/csv2gdx.exe ../Data/updated_data/PE_dele.csv output=../Data/output/MEEDE_dele.gdx index=1..2 values=lastCol useHeader=Y id=dele
+../26.1/csv2gdx.exe ../Data/updated_data/PE_dele.csv output=../Data/output/MEEDE_dele.gdx index=1..2 values=lastCol useHeader=Y id=dele
 
 # pf--fuel price
-../../26.1/csv2gdx.exe ../Data/updated_data/PE_pf.csv output=../Data/output/MEEDE_pf.gdx index=1..3 values=lastCol useHeader=Y id=pf
+../26.1/csv2gdx.exe ../Data/updated_data/PE_pf.csv output=../Data/output/MEEDE_pf.gdx index=1..3 values=lastCol useHeader=Y id=pf
