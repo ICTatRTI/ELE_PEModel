@@ -1,4 +1,4 @@
-# Electricity Partial Equilibrium model
+# Electricity Partial Equilibrium Model (PEM)
 
 ## RTI
 
